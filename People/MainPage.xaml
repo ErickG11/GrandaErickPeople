@@ -23,17 +23,29 @@
             Grid.Row="3"
             Clicked="OnGetButtonClicked" />
 
-        <CollectionView x:Name="peopleList" Grid.Row="4">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:Person">
-                    <Grid ColumnDefinitions="*,2*">
-                        <Label Text="{Binding Id}" TextColor="{StaticResource Primary}"/>
-                        <Label Grid.Column="1" Text="{Binding Name}" TextColor="{StaticResource Primary}"/>
-                    </Grid>
+        <Frame Padding="10" Margin="10" BackgroundColor="Black" BorderColor="Black" Grid.Row="4" HeightRequest="270">
+            <StackLayout >
+                <Label Text="Erick Granda" FontSize="20" TextColor="White" />
+                <Label Text="21" FontSize="18" TextColor="White" />
+                <Image Source="erick.jpg" WidthRequest="200" HeightRequest="200" />
+            </StackLayout>
+        </Frame>
+
+        <ListView x:Name="peopleList" Grid.Row="5">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="model:EGrandaPerson">
+                    <ViewCell>
+                        <Frame Padding="10" Margin="5" BackgroundColor="White" BorderColor="Gray">
+                            <StackLayout Orientation="Horizontal" Spacing="10">
+                                <Label Text="{Binding Name}" FontSize="18" TextColor="Black" VerticalOptions="Center" />
+                                <Button Text="Eliminar" VerticalOptions="Center" TextColor="Black" HorizontalOptions="Start"
+                                        Clicked="OnDeleteButtonClicked"/>
+                            </StackLayout>
+                        </Frame>
+                    </ViewCell>
                 </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            </ListView.ItemTemplate>
+        </ListView>
 
     </Grid>
-
 </ContentPage>

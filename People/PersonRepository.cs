@@ -12,7 +12,7 @@ public class PersonRepository
             return;
 
         conn = new SQLiteConnection(_dbPath);
-        conn.CreateTable<Person>();
+        conn.CreateTable<EGrandaPerson>();
     }
 
     string _dbPath;
@@ -36,7 +36,7 @@ public class PersonRepository
                 throw new Exception("Valid name required");
 
             // TODO: Insert the new person into the database
-            result = conn.Insert(new Person { Name = name }); 
+            result = conn.Insert(new EGrandaPerson { Name = name }); 
 
             StatusMessage = string.Format("{0} record(s) added (Name: {1})", result, name);
         }
@@ -46,19 +46,33 @@ public class PersonRepository
         }
 
     }
+    public void DeletePerson(EGrandaPerson person)
+    {
+        try
+        {
+            
+            int result = conn.Delete(person);
 
-    public List<Person> GetAllPeople()
+            StatusMessage = result > 0 ? "Registro eliminado con éxito." : "No se encontró el registro para eliminar.";
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = string.Format("Failed to delete {0}. Error: {1}", person.Name, ex.Message);
+        }
+    }
+
+    public List<EGrandaPerson> GetAllPeople()
     {
         try
         {
             Init();
-            return conn.Table<Person>().ToList();
+            return conn.Table<EGrandaPerson>().ToList();
         }
         catch (Exception ex)
         {
             StatusMessage = string.Format("Failed to retrieve data. {0}", ex.Message);
         }
 
-        return new List<Person>();
+        return new List<EGrandaPerson>();
     }
 }
